@@ -19,6 +19,7 @@
                     --color-negro-soft: #121212;
                 }
             </style>
+            jiji
         @endif
     </head>
     <body class="bg-white dark:bg-[#0a0a0a] text-[#1b1b18] font-sans antialiased">
