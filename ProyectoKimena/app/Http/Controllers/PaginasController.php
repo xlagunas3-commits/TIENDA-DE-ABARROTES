@@ -10,9 +10,14 @@ class PaginasController extends Controller
         return view('contacto');
     }
 
+public function  ver_nosotros(){
+        return view('nosotros');
 
+    }
+        
+public function ver_contenido(){
+        return view('contenido');
 
+    } 
 
-
-    
 }
