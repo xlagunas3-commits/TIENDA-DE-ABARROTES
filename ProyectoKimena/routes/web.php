@@ -13,3 +13,6 @@ Route::get('/', function () {
 
 
 Route::get('/contacto', [PaginasController::class, 'Ver_contacto']);
+
+Route::get('/nosotros', [PaginasController::class, 'Ver_nosotros']);
+
