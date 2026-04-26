@@ -3,98 +3,62 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\Product;
-use App\Models\OrderItem;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Auth::user()->orders()->with('orderItems.product')->get();
-        return view('orders.index', compact('orders'));
+        $orders = Order::with('user')->paginate(10);
+        return view('admin.orders.index', compact('orders'));
     }
 
     public function create()
     {
-        $products = Product::all();
-        return view('orders.create', compact('products'));
+        $users = User::all();
+        return view('admin.orders.create', compact('users'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'items' => 'required|array',
-            'items.*.product_id' => 'required|exists:products,id',
-            'items.*.quantity' => 'required|integer|min:1',
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'total' => 'required|numeric|min:0',
+            'status' => 'required|in:pending,completed,cancelled'
         ]);
 
-        $total = 0;
-        $orderItems = [];
-
-        foreach ($request->items as $item) {
-            $product = Product::find($item['product_id']);
-            $price = $product->price;
-            $total += $price * $item['quantity'];
-            $orderItems[] = [
-                'product_id' => $item['product_id'],
-                'quantity' => $item['quantity'],
-                'price' => $price,
-            ];
-        }
-
-        $order = Order::create([
-            'user_id' => Auth::id(),
-            'total' => $total,
-            'status' => 'pending',
-        ]);
-
-        foreach ($orderItems as $item) {
-            $item['order_id'] = $order->id;
-            OrderItem::create($item);
-        }
-
+        Order::create($validated);
         return redirect()->route('orders.index')->with('success', 'Pedido creado exitosamente.');
     }
 
     public function show(Order $order)
     {
-        // Ensure user owns the order
-        if ($order->user_id !== Auth::id()) {
-            abort(403);
-        }
-        $order->load('orderItems.product');
-        return view('orders.show', compact('order'));
+        $order->load('user', 'orderItems.product');
+        return view('admin.orders.show', compact('order'));
     }
 
     public function edit(Order $order)
     {
-        // Maybe not allow editing, or only status
-        if ($order->user_id !== Auth::id()) {
-            abort(403);
-        }
-        return view('orders.edit', compact('order'));
+        $users = User::all();
+        return view('admin.orders.edit', compact('order', 'users'));
     }
 
     public function update(Request $request, Order $order)
     {
-        if ($order->user_id !== Auth::id()) {
-            abort(403);
-        }
-        $request->validate([
-            'status' => 'required|in:pending,processing,shipped,delivered,cancelled',
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'total' => 'required|numeric|min:0',
+            'status' => 'required|in:pending,completed,cancelled'
         ]);
 
-        $order->update($request->only('status'));
+        $order->update($validated);
         return redirect()->route('orders.index')->with('success', 'Pedido actualizado exitosamente.');
     }
 
     public function destroy(Order $order)
     {
-        if ($order->user_id !== Auth::id()) {
-            abort(403);
-        }
+        $order->orderItems()->delete();
         $order->delete();
         return redirect()->route('orders.index')->with('success', 'Pedido eliminado exitosamente.');
     }

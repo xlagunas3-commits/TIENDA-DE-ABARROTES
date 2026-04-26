@@ -9,48 +9,48 @@ class SupplierController extends Controller
 {
     public function index()
     {
-        $suppliers = Supplier::all();
-        return view('suppliers.index', compact('suppliers'));
+        $suppliers = Supplier::paginate(10);
+        return view('admin.suppliers.index', compact('suppliers'));
     }
 
     public function create()
     {
-        return view('suppliers.create');
+        return view('admin.suppliers.create');
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'contact_email' => 'nullable|email',
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string',
+            'contact_email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'address' => 'nullable|string|max:500'
         ]);
 
-        Supplier::create($request->all());
+        Supplier::create($validated);
         return redirect()->route('suppliers.index')->with('success', 'Proveedor creado exitosamente.');
     }
 
     public function show(Supplier $supplier)
     {
-        return view('suppliers.show', compact('supplier'));
+        return view('admin.suppliers.show', compact('supplier'));
     }
 
     public function edit(Supplier $supplier)
     {
-        return view('suppliers.edit', compact('supplier'));
+        return view('admin.suppliers.edit', compact('supplier'));
     }
 
     public function update(Request $request, Supplier $supplier)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'contact_email' => 'nullable|email',
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string',
+            'contact_email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'address' => 'nullable|string|max:500'
         ]);
 
-        $supplier->update($request->all());
+        $supplier->update($validated);
         return redirect()->route('suppliers.index')->with('success', 'Proveedor actualizado exitosamente.');
     }
 

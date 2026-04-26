@@ -20,11 +20,11 @@
             Tu supermercado digital con entrega rápida, productos frescos y los mejores precios
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{{ route('products.index') }}" class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <a href="" class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                 <i class="fas fa-shopping-bag mr-2"></i>Ver Productos
             </a>
             @auth
-                <a href="{{ route('orders.index') }}" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300">
+                <a href="" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300">
                     <i class="fas fa-list mr-2"></i>Mis Pedidos
                 </a>
             @else
@@ -107,7 +107,7 @@
     </div>
 
     <div class="text-center mt-8">
-        <a href="{{ route('categories.index') }}" class="inline-flex items-center bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
+        <a href="" class="inline-flex items-center bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
             <i class="fas fa-eye mr-2"></i>Ver Todas las Categorías
         </a>
     </div>
