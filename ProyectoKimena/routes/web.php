@@ -12,7 +12,7 @@ Route::get('/', function () {
 
 
 
-Route::get('/contacto', [PaginasController::class, 'Ver_contacto']);
+Route::get('/contacto', [PaginasController::class, 'ver_contacto']);
 
-Route::get('/nosotros', [PaginasController::class, 'Ver_nosotros']);
+Route::get('/nosotros', [PaginasController::class, 'ver_nosotros']);
 
