@@ -46,3 +46,13 @@ Route::prefix('admin')->group(function () {
     // CRUD Routes - Users
     Route::resource('users', UserController::class);
 });
+<<<<<<< HEAD
+=======
+
+
+
+Route::get('/contacto', [PaginasController::class, 'ver_contacto']);
+
+Route::get('/nosotros', [PaginasController::class, 'ver_nosotros']);
+
+>>>>>>> c28eb8e58b44889a424713d97203a50d12a346b4
