@@ -129,17 +129,25 @@
                 <i class="fas fa-home"></i>
                 <span>Inicio</span>
             </a>
-            <a href="" class="text-white hover:text-yellow-300 transition-all duration-300 flex items-center space-x-2">
+            <a href="{{ route('categoria') }}" class="text-white hover:text-yellow-300 transition-all duration-300 flex items-center space-x-2">
                 <i class="fas fa-tags"></i>
                 <span>Categorías</span>
             </a>
-            <a href="" class="text-white hover:text-yellow-300 transition-all duration-300 flex items-center space-x-2">
+            <a href="{{ route('productos.public') }}" class="text-white hover:text-yellow-300 transition-all duration-300 flex items-center space-x-2">
                 <i class="fas fa-box"></i>
                 <span>Productos</span>
             </a>
-            <a href="" class="text-white hover:text-yellow-300 transition-all duration-300 flex items-center space-x-2">
+            <a href="{{ route('proveedores.public') }}" class="text-white hover:text-yellow-300 transition-all duration-300 flex items-center space-x-2">
                 <i class="fas fa-truck"></i>
                 <span>Proveedores</span>
+            </a>
+            <a href="{{ route('nosotros') }}" class="text-white hover:text-yellow-300 transition-all duration-300 flex items-center space-x-2">
+                <i class="fas fa-store"></i>
+                <span>Nosotros</span>
+            </a>
+            <a href="{{ route('contacto') }}" class="text-white hover:text-yellow-300 transition-all duration-300 flex items-center space-x-2">
+                <i class="fas fa-envelope"></i>
+                <span>Contacto</span>
             </a>
             @auth
                 <a href="" class="text-white hover:text-yellow-300 transition-all duration-300 flex items-center space-x-2">
@@ -163,17 +171,25 @@
             <i class="fas fa-home"></i>
             <span>Inicio</span>
         </a>
-        <a href="" class="block py-3 px-4 hover:bg-white/10 transition-all duration-300 flex items-center space-x-3">
+        <a href="{{ route('categoria') }}" class="block py-3 px-4 hover:bg-white/10 transition-all duration-300 flex items-center space-x-3">
             <i class="fas fa-tags"></i>
             <span>Categorías</span>
         </a>
-        <a href="" class="block py-3 px-4 hover:bg-white/10 transition-all duration-300 flex items-center space-x-3">
+        <a href="{{ route('productos.public') }}" class="block py-3 px-4 hover:bg-white/10 transition-all duration-300 flex items-center space-x-3">
             <i class="fas fa-box"></i>
             <span>Productos</span>
         </a>
-        <a href="" class="block py-3 px-4 hover:bg-white/10 transition-all duration-300 flex items-center space-x-3">
+        <a href="{{ route('proveedores.public') }}" class="block py-3 px-4 hover:bg-white/10 transition-all duration-300 flex items-center space-x-3">
             <i class="fas fa-truck"></i>
             <span>Proveedores</span>
+        </a>
+        <a href="{{ route('nosotros') }}" class="block py-3 px-4 hover:bg-white/10 transition-all duration-300 flex items-center space-x-3">
+            <i class="fas fa-store"></i>
+            <span>Nosotros</span>
+        </a>
+        <a href="{{ route('contacto') }}" class="block py-3 px-4 hover:bg-white/10 transition-all duration-300 flex items-center space-x-3">
+            <i class="fas fa-envelope"></i>
+            <span>Contacto</span>
         </a>
         @auth
             <a href="" class="block py-3 px-4 hover:bg-white/10 transition-all duration-300 flex items-center space-x-3">
@@ -209,9 +225,9 @@
             <div>
                 <h4 class="text-lg font-semibold mb-4">Enlaces Rápidos</h4>
                 <ul class="space-y-2 text-slate-300">
-                    <li><a href="" class="hover:text-white transition-colors">Categorías</a></li>
-                    <li><a href="" class="hover:text-white transition-colors">Productos</a></li>
-                    <li><a href="" class="hover:text-white transition-colors">Proveedores</a></li>
+                    <li><a href="{{ route('categoria') }}" class="hover:text-white transition-colors">Categorías</a></li>
+                    <li><a href="{{ route('productos.public') }}" class="hover:text-white transition-colors">Productos</a></li>
+                    <li><a href="{{ route('proveedores.public') }}" class="hover:text-white transition-colors">Proveedores</a></li>
                 </ul>
             </div>
 
@@ -268,6 +284,7 @@
 </body>
 </html>
 
+{{--
 <!-- HEADER -->
 <header class="bg-gradient-to-r from-vinodark to-vino text-white shadow-xl">
     <div class="container mx-auto flex justify-between items-center p-4">
@@ -336,3 +353,4 @@
 
 </body>
 </html>
+--}}

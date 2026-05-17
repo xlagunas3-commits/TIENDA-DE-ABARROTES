@@ -20,4 +20,19 @@ public function ver_contenido(){
 
     } 
 
+public function ver_categoria(){
+        return view('categoria');
+
+    }
+
+public function ver_productos(){
+        return view('productos');
+
+    }
+
+public function ver_proveedores(){
+        return view('proveedores');
+
+    }
+
 }

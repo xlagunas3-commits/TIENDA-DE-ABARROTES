@@ -14,8 +14,12 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/contacto', [PaginasController::class, 'Ver_contacto']);
-Route::get('/nosotros', [PaginasController::class, 'Ver_nosotros']);
+Route::get('/contacto', [PaginasController::class, 'ver_contacto'])->name('contacto');
+Route::get('/nosotros', [PaginasController::class, 'ver_nosotros'])->name('nosotros');
+Route::get('/categoria', [PaginasController::class, 'ver_categoria'])->name('categoria');
+Route::get('/productos', [PaginasController::class, 'ver_productos'])->name('productos.public');
+Route::get('/proveedores', [PaginasController::class, 'ver_proveedores'])->name('proveedores.public');
+Route::get('/provedores', [PaginasController::class, 'ver_proveedores'])->name('provedores.public');
 
 // Rutas del Admin - Sin autenticación
 Route::prefix('admin')->group(function () {
@@ -42,4 +46,3 @@ Route::prefix('admin')->group(function () {
     // CRUD Routes - Users
     Route::resource('users', UserController::class);
 });
-
