@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaginasController;
+use App\Http\Controllers\CartController;
 
 // Rutas públicas
 Route::get('/', function () {
@@ -20,6 +21,9 @@ Route::get('/categoria', [PaginasController::class, 'ver_categoria'])->name('cat
 Route::get('/productos', [PaginasController::class, 'ver_productos'])->name('productos.public');
 Route::get('/proveedores', [PaginasController::class, 'ver_proveedores'])->name('proveedores.public');
 Route::get('/provedores', [PaginasController::class, 'ver_proveedores'])->name('provedores.public');
+Route::get('/carrito', [CartController::class, 'index'])->name('cart.index');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
 
 // Rutas del Admin - Sin autenticación
 Route::prefix('admin')->group(function () {
@@ -46,13 +50,3 @@ Route::prefix('admin')->group(function () {
     // CRUD Routes - Users
     Route::resource('users', UserController::class);
 });
-<<<<<<< HEAD
-=======
-
-
-
-Route::get('/contacto', [PaginasController::class, 'ver_contacto']);
-
-Route::get('/nosotros', [PaginasController::class, 'ver_nosotros']);
-
->>>>>>> c28eb8e58b44889a424713d97203a50d12a346b4

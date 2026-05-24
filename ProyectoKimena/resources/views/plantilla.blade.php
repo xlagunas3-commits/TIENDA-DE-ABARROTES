@@ -141,6 +141,14 @@
                 <i class="fas fa-truck"></i>
                 <span>Proveedores</span>
             </a>
+            <a href="{{ route('cart.index') }}" class="text-white hover:text-yellow-300 transition-all duration-300 flex items-center space-x-2 relative">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Carrito</span>
+                @php $cartCount = collect(session('cart', []))->sum('quantity'); @endphp
+                @if($cartCount > 0)
+                    <span class="absolute -top-2 -right-4 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $cartCount }}</span>
+                @endif
+            </a>
             <a href="{{ route('nosotros') }}" class="text-white hover:text-yellow-300 transition-all duration-300 flex items-center space-x-2">
                 <i class="fas fa-store"></i>
                 <span>Nosotros</span>
@@ -183,6 +191,14 @@
             <i class="fas fa-truck"></i>
             <span>Proveedores</span>
         </a>
+        <a href="{{ route('cart.index') }}" class="block py-3 px-4 hover:bg-white/10 transition-all duration-300 flex items-center space-x-3 relative">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Carrito</span>
+            @php $cartCountMobile = collect(session('cart', []))->sum('quantity'); @endphp
+            @if($cartCountMobile > 0)
+                <span class="ml-auto inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $cartCountMobile }}</span>
+            @endif
+        </a>
         <a href="{{ route('nosotros') }}" class="block py-3 px-4 hover:bg-white/10 transition-all duration-300 flex items-center space-x-3">
             <i class="fas fa-store"></i>
             <span>Nosotros</span>
@@ -202,6 +218,17 @@
 
 <!-- CONTENIDO PRINCIPAL -->
 <main class="relative z-10 container mx-auto px-6 py-8">
+    @if(session('success') || session('error'))
+        <div class="mb-6 rounded-2xl p-5 shadow-xl bg-white border border-slate-200 text-gray-800">
+            @if(session('success'))
+                <div class="text-green-700 font-semibold">{{ session('success') }}</div>
+            @endif
+            @if(session('error'))
+                <div class="text-red-700 font-semibold">{{ session('error') }}</div>
+            @endif
+        </div>
+    @endif
+
     @yield('content')
 </main>
 

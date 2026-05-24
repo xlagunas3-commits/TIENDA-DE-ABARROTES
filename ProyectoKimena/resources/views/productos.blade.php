@@ -21,41 +21,74 @@
     </div>
 </section>
 
-<section class="grid md:grid-cols-3 gap-8 mb-16">
-    <div class="modern-card bg-white rounded-2xl p-8 shadow-xl">
-        <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center mb-6">
-            <i class="fas fa-apple-alt text-white text-2xl"></i>
+<section class="mb-16">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Catalogo de productos</h2>
+            <p class="text-gray-600 mt-2">Todos los productos registrados en la base de datos.</p>
         </div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-3">Manzana Roja</h3>
-        <p class="text-gray-600 mb-5">Fruta fresca seleccionada para consumo diario.</p>
-        <div class="flex items-center justify-between">
-            <span class="text-2xl font-bold text-primary-600">$35.00</span>
-            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Disponible</span>
-        </div>
+        <span class="bg-white text-primary-600 px-5 py-3 rounded-xl shadow font-bold">
+            {{ $products->count() }} productos
+        </span>
     </div>
 
-    <div class="modern-card bg-white rounded-2xl p-8 shadow-xl">
-        <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mb-6">
-            <i class="fas fa-bottle-water text-white text-2xl"></i>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-3">Agua Natural</h3>
-        <p class="text-gray-600 mb-5">Presentacion familiar para casa, negocio o escuela.</p>
-        <div class="flex items-center justify-between">
-            <span class="text-2xl font-bold text-primary-600">$18.00</span>
-            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Disponible</span>
-        </div>
-    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @forelse($products as $product)
+            <div class="modern-card bg-white rounded-2xl overflow-hidden shadow-xl">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="{{ $product->image_url ?: 'https://via.placeholder.com/640x480.png?text=' . urlencode($product->name) }}" alt="{{ $product->name }}" class="w-full h-full object-cover object-center">
+                </div>
+                <div class="p-8">
+                    <div class="space-y-3">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">{{ $product->name }}</h3>
+                            @if($product->category)
+                                <p class="text-sm text-gray-500">Categoría: {{ $product->category->name }}</p>
+                            @endif
+                        </div>
+                        <p class="text-gray-600">{{ $product->description ?? 'Descripción no disponible.' }}</p>
+                    </div>
 
-    <div class="modern-card bg-white rounded-2xl p-8 shadow-xl">
-        <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mb-6">
-            <i class="fas fa-bread-slice text-white text-2xl"></i>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-3">Pan Integral</h3>
-        <p class="text-gray-600 mb-5">Pan suave para desayunos, lonches y cenas rapidas.</p>
-        <div class="flex items-center justify-between">
-            <span class="text-2xl font-bold text-primary-600">$42.00</span>
-            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Pocas piezas</span>
-        </div>
+                <div class="mt-4 flex items-center justify-between gap-4">
+                    <span class="text-2xl font-bold text-primary-600">
+                        ${{ number_format($product->price, 2) }}
+                    </span>
+
+                    @if($product->stock > 10)
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Disponible</span>
+                    @elseif($product->stock > 0)
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Pocas piezas</span>
+                    @else
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Agotado</span>
+                    @endif
+                </div>
+
+                <div class="mt-6">
+                    @if($product->stock > 0)
+                        <form action="{{ route('cart.add', $product) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white px-5 py-3 rounded-xl font-semibold transition duration-300 flex items-center justify-center gap-2">
+                                <i class="fas fa-cart-plus"></i>
+                                <span>Agregar al carrito</span>
+                            </button>
+                        </form>
+                    @else
+                        <button type="button" class="w-full bg-gray-200 text-gray-500 px-5 py-3 rounded-xl font-semibold cursor-not-allowed flex items-center justify-center gap-2" disabled>
+                            <i class="fas fa-ban"></i>
+                            <span>No disponible</span>
+                        </button>
+                    @endif
+                </div>
+
+                <p class="text-sm text-gray-500 mt-4">Existencias: {{ $product->stock }}</p>
+            </div>
+        @empty
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-2xl p-10 shadow-xl text-center">
+                <i class="fas fa-box-open text-5xl text-gray-300 mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">No hay productos registrados</h3>
+                <p class="text-gray-600">Cuando agregues productos desde el administrador, apareceran aqui.</p>
+            </div>
+        @endforelse
     </div>
 </section>
 

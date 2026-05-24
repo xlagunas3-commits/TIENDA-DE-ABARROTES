@@ -37,6 +37,14 @@
             @enderror
         </div>
 
+        <div class="mb-4">
+            <label for="image_url" class="block text-sm font-semibold text-gray-700 mb-2">Imagen (URL)</label>
+            <input type="url" id="image_url" name="image_url" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('image_url') border-red-500 @enderror" value="{{ old('image_url', $product->image_url) }}" placeholder="https://example.com/imagen.jpg">
+            @error('image_url')
+                <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
+            @enderror
+        </div>
+
         <div class="grid grid-cols-2 gap-4 mb-6">
             <div>
                 <label for="price" class="block text-sm font-semibold text-gray-700 mb-2">Precio *</label>
